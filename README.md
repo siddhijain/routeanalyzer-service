@@ -9,3 +9,5 @@ mvn clean
 mvn install -Dmaven.test.skip=true
 
 mvn spring-boot:run
+
+http://localhost:8080
