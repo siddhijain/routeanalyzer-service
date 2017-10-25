@@ -52,7 +52,7 @@
 								  <outputDirectory>${basedir}/target/classes/static/</outputDirectory >
 								  <resources>
 									  <resource>
-										  <directory>${basedir}/../routeanalyzer-angular4-client/dist</directory >
+										  <directory>${basedir}/../routeanalyzer-client/dist</directory >
 									  </resource>
 								  </resources>
 							  </configuration>
