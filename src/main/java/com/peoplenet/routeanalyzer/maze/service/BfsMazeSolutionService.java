@@ -5,11 +5,7 @@ package com.peoplenet.routeanalyzer.maze.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-//import java.awt.Point;
-//import java.util.HashMap;
 import java.util.LinkedList;
-//import java.util.Map;
 import java.util.Queue;
 
 import org.springframework.stereotype.Service;
@@ -46,8 +42,6 @@ public class BfsMazeSolutionService implements MazeSolutionService {
 		Queue<Point> queue = new LinkedList<Point>();
 		queue.add(startNode);
 				
-//		Arrays.stream(inputMaze).mapToInt(row -> row.length).max().getAsInt(); CAN WORK IN JAVA 8
-		boolean[][] visited = new boolean[inputMaze.length][COLUMN_SIZE];
 		int[][] distances = new int[inputMaze.length][COLUMN_SIZE];
 		String[][] pathTo = new String[inputMaze.length][COLUMN_SIZE];
 		
@@ -55,7 +49,6 @@ public class BfsMazeSolutionService implements MazeSolutionService {
 		for(int[] row : distances)
 			Arrays.fill(row, 0);
 		distances[startNode.xPoint][startNode.yPoint]=0;
-		visited[startNode.xPoint][startNode.yPoint]=true;
 		pathTo[startNode.xPoint][startNode.yPoint]= startNode + "";
 		while(!queue.isEmpty()){
 			Point node = queue.poll();
@@ -66,23 +59,15 @@ public class BfsMazeSolutionService implements MazeSolutionService {
 						pathTo[neighbor.xPoint][neighbor.yPoint] = pathTo[node.xPoint][node.yPoint] + neighbor + "";												
 					}				
 				}							
-		}
+		}		
 		
-		Iterator<Point> iterator = shortestPath.iterator();
-        while (iterator.hasNext()) {
-        	System.out.println(iterator.next());        	     	 
-            }
-				
 		if(distances[destinationNode.xPoint][destinationNode.yPoint]==0)
 			response.setErrorMessage("No possible moves");
 		else{
 			response.setNumberOfSteps(distances[destinationNode.xPoint][destinationNode.yPoint]);
 			response.setShortestPath(pathTo[destinationNode.xPoint][destinationNode.yPoint]);
 		}	
-
-		
-			
-		
+	
 		return response;
 	}
 	
@@ -127,8 +112,6 @@ public class BfsMazeSolutionService implements MazeSolutionService {
 		public ArrayList<Point> getNeighbors(char[][] inputMaze,int xCoords,int yCoords,int allowedYCoords ){
 			ArrayList<Point> neighbors = new ArrayList<Point>();
 			Point temp;
-	//		int xCoords = this.xPoint;
-	//		int yCoords = this.yPoint;	
 			try{
 				if((xCoords+1)<inputMaze.length && yCoords<inputMaze[xCoords+1].length && isValidNeighbor(inputMaze[xCoords+1][yCoords])){				
 					temp = new Point();
@@ -157,35 +140,7 @@ public class BfsMazeSolutionService implements MazeSolutionService {
 			
 		} catch(ArrayIndexOutOfBoundsException e){
 			
-		}
-	/**		if(xCoords<inputMaze.length){
-			if((xCoords+1)<inputMaze.length && yCoords<inputMaze[xCoords+1].length && isValidNeighbor(inputMaze[xCoords+1][yCoords])){				
-				temp = new Point();
-				temp.xPoint=xCoords+1;
-				temp.yPoint=yCoords;
-				neighbors.add(temp);				
-			}
-			if((xCoords-1)>=0 && yCoords < inputMaze[xCoords-1].length && isValidNeighbor(inputMaze[xCoords-1][yCoords])){
-				temp = new Point();
-				temp.xPoint=xCoords-1;
-				temp.yPoint=yCoords;
-				neighbors.add(temp);
-			}
-			}
-			if(yCoords<allowedYCoords){
-			if((yCoords+1)<allowedYCoords && isValidNeighbor(inputMaze[xCoords][yCoords+1])){
-				temp = new Point();
-				temp.xPoint=xCoords;
-				temp.yPoint=yCoords+1;
-				neighbors.add(temp);
-			}
-			if((yCoords-1)>=0 && isValidNeighbor(inputMaze[xCoords][yCoords-1])){
-				temp = new Point();
-				temp.xPoint=xCoords;
-				temp.yPoint=yCoords-1;
-				neighbors.add(temp);
-			}
-			} */
+		}	
 			return neighbors;
 		}
 		
@@ -201,13 +156,7 @@ public class BfsMazeSolutionService implements MazeSolutionService {
 			   return "(" + this.xPoint + "," + this.yPoint + ")" + "->";
 		}
 		
-		
-	/**	public boolean equals(Point p){
-			if(this.xPoint == p.xPoint && this.yPoint == p.yPoint )
-				return true;
-			else
-				return false;			
-		} */
+
 		 
 	}
 	
